@@ -24,7 +24,7 @@ export type GeneralApiProblem =
   /**
    * Unable to find that resource.  This is a 404.
    */
-  | { kind: "not-found" }
+  | { kind: "not-found"; message: string }
   /**
    * All other 4xx series errors.
    */
@@ -62,7 +62,7 @@ export function getGeneralApiProblem(response: ApiResponse<any>): GeneralApiProb
         case 403:
           return { kind: "forbidden" }
         case 404:
-          return { kind: "not-found" }
+          return { kind: "not-found", message: response.data.message }
         default:
           return { kind: "rejected" }
       }

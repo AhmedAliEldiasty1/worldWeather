@@ -2,7 +2,7 @@
 
 const palette = {
   neutral100: "#FFFFFF",
-  neutral200: "#F4F2F1",
+  neutral200: "#D6D3DE",
   neutral300: "#D7CEC9",
   neutral400: "#B6ACA6",
   neutral500: "#978F8A",
@@ -11,24 +11,7 @@ const palette = {
   neutral800: "#191015",
   neutral900: "#000000",
 
-  primary100: "#F4E0D9",
-  primary200: "#E8C1B4",
-  primary300: "#DDA28E",
-  primary400: "#D28468",
-  primary500: "#C76542",
-  primary600: "#A54F31",
-
-  secondary100: "#DCDDE9",
-  secondary200: "#BCC0D6",
-  secondary300: "#9196B9",
-  secondary400: "#626894",
-  secondary500: "#41476E",
-
-  accent100: "#FFEED4",
-  accent200: "#FFE1B2",
-  accent300: "#FDD495",
-  accent400: "#FBC878",
-  accent500: "#FFBB50",
+  primary: "#2388C7",
 
   angry100: "#F2D6CD",
   angry500: "#C03403",
@@ -57,9 +40,13 @@ export const colors = {
    */
   textDim: palette.neutral600,
   /**
-   * The default color of the screen background.
+   * The default color of the screen background1.
    */
   background: palette.neutral200,
+  /**
+   * The default color of the screen background2.
+   */
+  background2: palette.neutral100,
   /**
    * The default border color.
    */
@@ -67,7 +54,7 @@ export const colors = {
   /**
    * The main tinting color.
    */
-  tint: palette.primary500,
+  tint: palette.primary,
   /**
    * A subtle color used for lines.
    */

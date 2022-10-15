@@ -1,22 +1,7 @@
-/**
- * This Api class lets you define an API endpoint and methods to request
- * data and process it.
- *
- * See the [Backend API Integration](https://github.com/infinitered/ignite/blob/master/docs/Backend-API-Integration.md)
- * documentation for more details.
- */
-import {
-  ApiResponse, // @demo remove-current-line
-  ApisauceInstance,
-  create,
-} from "apisauce"
+import { ApisauceInstance, create } from "apisauce"
 import Config from "../../config"
 import { GeneralApiProblem, getGeneralApiProblem } from "./apiProblem" // @demo remove-current-line
-import type {
-  ApiConfig,
-  ApiFeedResponse, // @demo remove-current-line
-} from "./api.types"
-import type { EpisodeSnapshotIn } from "../../models/Episode" // @demo remove-current-line
+import type { ApiConfig, CityData } from "./api.types"
 
 /**
  * Configuring the apisauce instance.
@@ -52,10 +37,10 @@ export class Api {
   /**
    * Gets a list of recent React Native Radio episodes.
    */
-  async getEpisodes(): Promise<{ kind: "ok"; episodes: EpisodeSnapshotIn[] } | GeneralApiProblem> {
+  async getCity(city: string): Promise<{ kind: "ok"; data: CityData } | GeneralApiProblem> {
     // make the api call
-    const response: ApiResponse<ApiFeedResponse> = await this.apisauce.get(
-      `api.json?rss_url=https%3A%2F%2Ffeeds.simplecast.com%2FhEI_f9Dx`,
+    const response = await this.apisauce.get(
+      `https://api.openweathermap.org/data/2.5/weather?q=${city}&APPID=f5cb0b965ea1564c50c6f1b74534d823`,
     )
 
     // the typical ways to die when calling an api
@@ -66,14 +51,22 @@ export class Api {
 
     // transform the data into the format we are expecting
     try {
-      const rawData = response.data
+      const rawData: any = response.data
+      const data = {
+        city: rawData.name,
+        country: rawData.sys.country,
+        main: rawData.weather[0].main,
+        main_icon: rawData.weather[0].icon,
+        temp: `${(rawData.main.temp - 273.15).toFixed(2)}`,
+        humidity: `${rawData.main.humidity}`,
+        wind_speed: `${rawData.wind.speed}`,
+        time_zone: Date.now(),
+      }
 
       // This is where we transform the data into the shape we expect for our MST model.
-      const episodes: EpisodeSnapshotIn[] = rawData.items.map((raw) => ({
-        ...raw,
-      }))
+      console.log(data)
 
-      return { kind: "ok", episodes }
+      return { kind: "ok", data }
     } catch (e) {
       if (__DEV__) {
         console.tron.error(`Bad data: ${e.message}\n${response.data}`, e.stack)

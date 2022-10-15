@@ -1,11 +1,12 @@
 import * as Localization from "expo-localization"
 import i18n from "i18n-js"
 import { I18nManager } from "react-native"
+import RNRestart from "react-native-restart"
 
 // if English isn't your default language, move Translations to the appropriate language file.
 import en, { Translations } from "./en"
 import ar from "./ar"
-import ko from "./ko"
+import { loadString, saveString } from "../utils/storage"
 
 i18n.fallbacks = true
 /**
@@ -13,14 +14,29 @@ i18n.fallbacks = true
  * the language code is the suffixed with "-US". i.e. if a device is set to English ("en"),
  * if you change to another language and then return to English language code is now "en-US".
  */
-i18n.translations = { ar, en, "en-US": en, ko }
-
-i18n.locale = Localization.locale
+i18n.translations = { ar, en, "en-US": en }
 
 // handle RTL languages
-export const isRTL = Localization.isRTL
-I18nManager.allowRTL(isRTL)
-I18nManager.forceRTL(isRTL)
+const setLang = async () => {
+  let a = await loadString("lang")
+  let isRestart = false
+  if (!a) {
+    a = "ar"
+    isRestart = true
+  }
+  i18n.locale = a
+  I18nManager.allowRTL(a == "en" ? false : true)
+  I18nManager.forceRTL(a == "en" ? false : true)
+  console.log("====================================")
+  console.log(isRestart)
+  console.log("====================================")
+  if (isRestart) {
+    await saveString("lang", a)
+    RNRestart.Restart()
+  }
+}
+setLang()
+export const isRTL = I18nManager.isRTL
 
 /**
  * Builds up valid keypaths for translations.
