@@ -3,26 +3,20 @@ import { observer } from "mobx-react-lite"
 import {
   ActivityIndicator,
   FlatList,
-  I18nManager,
-  ImageStyle,
   Modal,
-  StyleProp,
   TextStyle,
   TouchableOpacity,
-  useWindowDimensions,
   View,
   ViewStyle,
 } from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
-import { AppStackScreenProps, navigate } from "../navigators"
-import { Button, CityItem, Header, Icon, IconTypes, Screen, Text, TextField } from "../components"
-import { colors, spacing, typography } from "../theme"
+import { AppStackScreenProps } from "../navigators"
+import { Button, CityItem, Icon, Text, TextField } from "../components"
+import { colors, spacing } from "../theme"
 import { useStores } from "../models"
 import LinearGradient from "react-native-linear-gradient"
-import I18n from "i18n-js"
-import RNRestart from "react-native-restart"
-import { saveString } from "../utils/storage"
-import { translate } from "../i18n"
+import { $background, $iconStyle, $root } from "./style"
+import { changeLanguage } from "../i18n"
 
 // REMOVE ME! ⬇️ This TS ignore will not be necessary after you've added the correct navigator param type
 // @ts-ignore
@@ -43,20 +37,7 @@ export const HomeScreen: FC<StackScreenProps<AppStackScreenProps, "home">> = obs
     const { city, country } = cityDetails
     const [showModal, setShowModal] = useState(false)
     const [searchCity, setSearchCity] = useState("")
-    const changeLanguage = async () => {
-      if (I18nManager.isRTL) {
-        I18n.locale = "en"
-        I18nManager.allowRTL(false)
-        I18nManager.forceRTL(false)
-        await saveString("lang", "en")
-      } else {
-        I18n.locale = "ar"
-        I18nManager.allowRTL(true)
-        I18nManager.forceRTL(true)
-        await saveString("lang", "ar")
-      }
-      RNRestart.Restart()
-    }
+
     return (
       <View style={$root}>
         <LinearGradient
@@ -190,10 +171,6 @@ export const HomeScreen: FC<StackScreenProps<AppStackScreenProps, "home">> = obs
   },
 )
 
-const $root: ViewStyle = {
-  flex: 1,
-  backgroundColor: colors.background,
-}
 const $headerContainer: ViewStyle = {
   flexDirection: "row",
   backgroundColor: colors.palette.primary,
@@ -201,25 +178,12 @@ const $headerContainer: ViewStyle = {
   justifyContent: "space-between",
   alignItems: "flex-end",
 }
-
 const $header: TextStyle = {
   marginBottom: spacing.extraLarge,
   marginLeft: spacing.huge,
   color: "white",
   fontSize: 30,
   lineHeight: 30,
-}
-
-const $background: ViewStyle = {
-  position: "absolute",
-  left: 0,
-  bottom: 0,
-  right: 0,
-  width: "100%",
-}
-const $iconStyle: StyleProp<ImageStyle> = {
-  resizeMode: "stretch",
-  width: "100%",
 }
 const $buttonStyle: ViewStyle = {
   position: "absolute",
@@ -229,7 +193,6 @@ const $buttonStyle: ViewStyle = {
   borderRadius: 50,
   paddingHorizontal: spacing.large,
 }
-
 const $modalContent: ViewStyle = {
   backgroundColor: "white",
   borderRadius: 20,

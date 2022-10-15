@@ -29,7 +29,7 @@ export const CityItem = observer(function CityItem(props: CityItemProps) {
       <View style={$styles}>
         <View style={{ flexDirection: "row" }}>
           <Icon icon="location_city" style={{ marginRight: spacing.extraLarge }} />
-          <Text preset="bold" text={`${city},${country}`} />
+          <Text preset="bold" text={`${city}, ${country}`} />
         </View>
         <Icon icon={icon} onPress={onIconPress} />
       </View>

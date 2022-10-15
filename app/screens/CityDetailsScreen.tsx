@@ -1,23 +1,15 @@
 import React, { FC, useEffect } from "react"
 import { observer } from "mobx-react-lite"
-import {
-  ActivityIndicator,
-  Image,
-  ImageStyle,
-  Modal,
-  StyleProp,
-  TextStyle,
-  View,
-  ViewStyle,
-} from "react-native"
+import { ActivityIndicator, ImageStyle, TextStyle, View, ViewStyle } from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
 import { AppStackScreenProps, goBack } from "../navigators"
-import { AutoImage, Icon, Screen, Text } from "../components"
+import { AutoImage, Icon, Text } from "../components"
 import { colors, spacing } from "../theme"
 import { useStores } from "../models"
 import moment from "moment"
 import { translate } from "../i18n"
 import LinearGradient from "react-native-linear-gradient"
+import { $activityIndicator, $background, $headerText, $iconStyle, $root, $rowStyle } from "./style"
 
 // REMOVE ME! ⬇️ This TS ignore will not be necessary after you've added the correct navigator param type
 // @ts-ignore
@@ -101,30 +93,10 @@ export const CityDetailsScreen: FC<StackScreenProps<AppStackScreenProps, "CityDe
   },
 )
 
-const $root: ViewStyle = {
-  flex: 1,
-  backgroundColor: colors.background,
-}
 const $headerContainer: ViewStyle = {
   backgroundColor: colors.palette.primary,
   height: 200,
   paddingTop: spacing.huge,
-}
-
-const $header: TextStyle = {
-  marginBottom: spacing.extraLarge,
-  marginLeft: spacing.huge,
-  color: "white",
-  fontSize: 30,
-  lineHeight: 30,
-}
-
-const $background: ViewStyle = {
-  position: "absolute",
-  left: 0,
-  bottom: 0,
-  right: 0,
-  width: "100%",
 }
 const $timeInfo: ViewStyle = {
   alignItems: "center",
@@ -134,10 +106,7 @@ const $timeInfo: ViewStyle = {
   right: 0,
   justifyContent: "center",
 }
-const $iconStyle: StyleProp<ImageStyle> = {
-  resizeMode: "stretch",
-  width: "100%",
-}
+
 const $detailsContainer: ViewStyle = {
   position: "absolute",
   left: 30,
@@ -157,17 +126,6 @@ const $detailsContainer: ViewStyle = {
   shadowRadius: 4,
   // height: "60%",
 }
-const $headerText: TextStyle = {
-  fontSize: 25,
-  paddingVertical: spacing.large,
-}
-const $rowStyle: ViewStyle = {
-  width: "100%",
-  paddingHorizontal: spacing.extraLarge,
-  flexDirection: "row",
-  justifyContent: "space-between",
-  height: 35,
-}
 const $primaryValue: TextStyle = {
   color: colors.palette.primary,
   fontSize: 20,
@@ -176,9 +134,4 @@ const $image: ImageStyle = {
   width: 200,
   height: 200,
   marginBottom: 50,
-}
-const $activityIndicator: ViewStyle = {
-  flex: 1,
-  justifyContent: "center",
-  alignItems: "center",
 }

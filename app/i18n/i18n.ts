@@ -7,6 +7,7 @@ import RNRestart from "react-native-restart"
 import en, { Translations } from "./en"
 import ar from "./ar"
 import { loadString, saveString } from "../utils/storage"
+import I18n from "i18n-js"
 
 i18n.fallbacks = true
 /**
@@ -34,6 +35,21 @@ const setLang = async () => {
 }
 setLang()
 export const isRTL = I18nManager.isRTL
+
+export const changeLanguage = async () => {
+  if (I18nManager.isRTL) {
+    I18n.locale = "en"
+    I18nManager.allowRTL(false)
+    I18nManager.forceRTL(false)
+    await saveString("lang", "en")
+  } else {
+    I18n.locale = "ar"
+    I18nManager.allowRTL(true)
+    I18nManager.forceRTL(true)
+    await saveString("lang", "ar")
+  }
+  RNRestart.Restart()
+}
 
 /**
  * Builds up valid keypaths for translations.

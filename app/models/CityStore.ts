@@ -49,9 +49,6 @@ export const CityStoreModel = types
     saveWeather: (weather: CityDetails) => {
       self.savedWeather.replace([weather, ...self.savedWeather])
     },
-    // SaveCityWeatherHistory: (data) => {
-    //   self.savedCityWeather = data.slice
-    // }
   }))
   .actions((self) => ({
     async fetchCity(city: string) {
