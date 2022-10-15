@@ -2,6 +2,7 @@
 import * as ReactNative from "react-native"
 import mockAsyncStorage from "@react-native-async-storage/async-storage/jest/async-storage-mock"
 import mockFile from "./mockFile"
+import "./mock-react-native-snackbar"
 
 // libraries to mock
 jest.doMock("react-native", () => {

@@ -62,7 +62,7 @@ export function getGeneralApiProblem(response: ApiResponse<any>): GeneralApiProb
         case 403:
           return { kind: "forbidden" }
         case 404:
-          return { kind: "not-found", message: response.data.message }
+          return { kind: "not-found", message: response.data?.message }
         default:
           return { kind: "rejected" }
       }

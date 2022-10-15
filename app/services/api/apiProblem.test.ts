@@ -56,6 +56,7 @@ test("handles not-found errors", () => {
     getGeneralApiProblem({ problem: "CLIENT_ERROR", status: 404 } as ApiErrorResponse<null>),
   ).toEqual({
     kind: "not-found",
+    message: undefined,
   })
 })
 
