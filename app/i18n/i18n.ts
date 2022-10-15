@@ -22,8 +22,7 @@ const setLang = async () => {
   let a = await loadString("lang")
   let isRestart = false
   if (!a) {
-    a = "ar"
-    isRestart = true
+    a = "en"
   }
   i18n.locale = a
   I18nManager.allowRTL(a == "en" ? false : true)
