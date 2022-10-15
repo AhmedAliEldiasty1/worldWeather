@@ -62,10 +62,6 @@ export class Api {
         wind_speed: `${rawData.wind.speed}`,
         time_zone: Date.now(),
       }
-
-      // This is where we transform the data into the shape we expect for our MST model.
-      console.log(data)
-
       return { kind: "ok", data }
     } catch (e) {
       if (__DEV__) {

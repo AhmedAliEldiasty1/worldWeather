@@ -27,9 +27,6 @@ const setLang = async () => {
   i18n.locale = a
   I18nManager.allowRTL(a == "en" ? false : true)
   I18nManager.forceRTL(a == "en" ? false : true)
-  console.log("====================================")
-  console.log(isRestart)
-  console.log("====================================")
   if (isRestart) {
     await saveString("lang", a)
     RNRestart.Restart()

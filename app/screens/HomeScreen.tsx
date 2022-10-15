@@ -81,10 +81,11 @@ export const HomeScreen: FC<StackScreenProps<AppStackScreenProps, "home">> = obs
                 country={item.country}
                 icon="info"
                 onIconPress={() => {
-                  getCityWeatherHistory(item.city)
+                  const data = getCityWeatherHistory(item.city)
                   navigation.navigate("cityHistory", {
                     screen: "cityHistory",
                     city_name: item.city,
+                    data,
                   })
                 }}
                 onPress={() =>

@@ -3,8 +3,7 @@ import { observer } from "mobx-react-lite"
 import { FlatList, ImageStyle, StyleProp, TextStyle, View, ViewStyle } from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
 import { AppStackScreenProps, goBack } from "../navigators"
-import { CityHistoryItem, CityItem, Icon, Screen, Text } from "../components"
-import { useStores } from "../models"
+import { CityHistoryItem, Icon, Text } from "../components"
 import { colors, spacing } from "../theme"
 import { translate } from "../i18n"
 import LinearGradient from "react-native-linear-gradient"
@@ -22,11 +21,9 @@ import LinearGradient from "react-native-linear-gradient"
 // @ts-ignore
 export const CityHistoryScreen: FC<StackScreenProps<AppStackScreenProps, "CityHistory">> = observer(
   function CityHistoryScreen(_props) {
-    const { navigation, route } = _props
-    const { city_name } = route.params
+    const { route } = _props
+    const { city_name, data } = route.params
     // Pull in one of our MST stores
-    const { cityStore } = useStores()
-    const { savedWeather } = cityStore
 
     // Pull in navigation via hook
     // const navigation = useNavigation()
@@ -44,7 +41,7 @@ export const CityHistoryScreen: FC<StackScreenProps<AppStackScreenProps, "CityHi
             <Text style={$headerStyle} text={translate("common.historical", { city: city_name })} />
           </View>
           <FlatList
-            data={savedWeather.filter((item) => item.city == city_name)}
+            data={data}
             contentContainerStyle={{ paddingHorizontal: spacing.large }}
             renderItem={({ item }) => <CityHistoryItem data={item} />}
           />

@@ -73,12 +73,7 @@ export const CityStoreModel = types
     },
     getCityWeatherHistory: (city: string) => {
       const data = self.savedWeather.filter((item) => item.city == city)
-      // console.log("====================================")
-      // console.log(self.savedWeather)
-      // console.log("====================================")
-      // self.savedCityWeather.replace(data)
-      // const newData = data.slice()
-      // self.savedCityWeather.replace([...newData])
+      return data
     },
   })) // eslint-disable-line @typescript-eslint/no-unused-vars
 
